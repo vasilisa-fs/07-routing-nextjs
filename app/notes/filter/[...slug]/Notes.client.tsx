@@ -9,8 +9,13 @@ import Modal from '@/components/Modal/Modal';
 import NoteForm from '@/components/NoteForm/NoteForm';
 import NoteList from '@/components/NoteList/NoteList';
 import css from './Notes.module.css';
+import { NoteTag } from '@/types/note';
 
-const NotesClient = () => {
+interface NotesClientProps {
+  tag?: NoteTag;
+}
+
+const NotesClient = ({ tag }: NotesClientProps) => {
   const [query, setQuery] = useState<string>('');
   const [inputValue, setInputValue] = useState('');
   const [page, setPage] = useState(1);
@@ -37,8 +42,8 @@ const NotesClient = () => {
   };
 
   const { data, isLoading, error } = useQuery({
-    queryKey: ['notes', query, page],
-    queryFn: () => fetchNotes({ page, perPage, search: query }),
+    queryKey: ['notes', query, page, tag],
+    queryFn: () => fetchNotes({ page, perPage, search: query, tag }),
     placeholderData: keepPreviousData,
     refetchOnWindowFocus: false,
   });
