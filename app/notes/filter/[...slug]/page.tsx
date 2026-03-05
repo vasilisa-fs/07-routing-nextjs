@@ -15,7 +15,6 @@ const Notes = async ({ params }: NotesProps) => {
   const queryClient = new QueryClient();
   const selectedTag = (await params).slug[0];
 
-  // ⚡ исправленная логика
   const tag: NoteTag | undefined =
     selectedTag === 'all' ? undefined : (selectedTag as NoteTag);
 
